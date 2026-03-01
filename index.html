@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#4f46e5">
+    <title>Shaxsiy Ish va Maosh Kuzatuvchi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="top-nav">
+            <div class="profile">
+            <div class="profile-section" id="profileTrigger">
+                <div class="profile-avatar" id="avatarDisplay">
+                    <img id="userImg" src="./icons/person-default.png" alt="user">
+                </div>
+                <span id="userNameDisplay">+ yaratish</span>
+            </div>
+
+
+            <div id="profileModal" class="modal hidden"> 
+                <div class="modal-content">
+                    <h3>Profil Ma'lumotlari</h3>
+                    <input type="text" id="nameInput" placeholder="Ism Familiya">
+
+                    <label for="imageInput" class="file-upload-label" id="fileLabel">
+                        <div id="previewContainer" style="display: none; width: 80px; height: 80px; margin: 0 auto 10px auto; border-radius: 50%; overflow: hidden; border: 2px solid #7c4dff;">
+                            <img id="imagePreview" src="" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <span id="labelText">📷 Rasm yuklash</span>
+                    </label>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+
+                    <div class="modal-btns">
+                        <button id="saveProfile">Saqlash</button>
+                        <button id="closeModal">Yopish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        
+        <header class="top-card">
+            <div class="top-left">
+                <div class="earned">Topilgan <span id="statEarned">0.00 UZS</span></div>
+                <button onclick="showFullStatistics()" class="stat-btn" title="To'liq statistika">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <span>Statistika</span>
+                </button>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar small">
+                    <div id="progressFill"></div>
+                    <div class="progress-mini" id="progressIndicator">
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="badges">
+                <span class="badge opshi">Umumiy: <strong id="statOpshi">0</strong></span>
+                <span class="badge full">To'liq: <strong id="statFull">0</strong></span>
+                <span class="badge half">Yarim: <strong id="statHalf">0</strong></span>
+                <span class="badge off">Dam: <strong id="statOff">0</strong></span>
+            </div>
+        </header>
+        <main>
+            <section class="inputs-row">
+                <div class="salary-container">
+                    <label for="monthlySalary">Oylik maosh</label>
+                    <div class="input-wrapper">
+                        <input id="monthlySalary" type="text" inputmode="numeric" placeholder="0" />
+                        <button id="themeToggle" class="theme-toggle" title="Qorong'i/Yorug' rejim">
+                            <div class="toggle-circle"></div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section class="calendar-card">
+                <div class="calendar-header">
+                    <button id="prevMonth2" class="nav small"> 
+                        <span class="icon-left"></span>
+                    </button>
+                    
+                    <h2 id="monthLabelCenter"></h2>
+                    
+                    <button id="nextMonth2" class="nav small">
+                        <span class="icon-right"></span>
+                    </button>
+                </div>
+                <div class="calendar" id="calendar"></div>
+            </section>
+            <section class="actions">
+                <div class="legend">
+                    <button class="action red" data-value="0">Dam (0)</button>
+                    <button class="action yellow" data-value="0.5">Yarim (0.5)</button>
+                    <button class="action green" data-value="1">To'liq (1)</button>
+                </div>
+            </section>
+            <footer class="developer-signature">
+                <div class="sig-line"></div>
+                <div class="sig-content">
+                    <span class="sig-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6m5-10l-2 12" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <h3 class="sig-text">Dasturchi: <span>Ramazan Alliyarov</span></h3>
+                </div>
+                <div class="sig-line"></div>
+            </footer>
+        </main>
+    </div>
+            <div id="statsModal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Oylik statistika</h2>
+                        <button onclick="closeStatsModal()" class="close-btn">&times;</button>
+                    </div>
+                    <div id="statsList" class="stats-list">
+                        </div>
+                </div>
+            </div>
+    <script src="./script.js"></script>
+</body>
+</html>

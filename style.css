@@ -1,0 +1,1038 @@
+:root{
+    /* --bg-image: url('./icons/day_theme.png'); */
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --accent: #4f46e5;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 6px 18px rgba(15,23,42,0.08);
+    --radius: 12px;
+    --text: #0f172a;
+    --cardmodal: #c4c4c4;
+    --icon-left: url('file:///android_asset/icons/left-day.png');
+    --icon-right: url('file:///android_asset/icons/right-day.png');
+    --icon-ong: url('./icons/right-day.png');
+    --icon-shep: url('./icons/left-day.png');
+}
+
+:root.dark{
+    /* --bg-image: url('./icons/darc_theme.png'); */
+    --bg: #0b1020;
+    --card: rgba(15, 23, 36, 0.9);
+    --muted: #94a3b8;
+    --accent: #7c3aed;
+    --green: #34d399;
+    --yellow: #fbbf24;
+    --red: #fb7185;
+    --glass: rgba(255,255,255,0.03);
+    --shadow: 0 6px 24px rgba(2,6,23,0.6);
+    --radius: 12px;
+    --text: #e6eef8;
+    --cardmodal: #1e293b;
+    --icon-left: url('file:///android_asset/icons/left-night.png');
+    --icon-right: url('file:///android_asset/icons/right-night.png');
+    --icon-ong: url('./icons/right-night.png');
+    --icon-shep: url('./icons/left-night.png');
+}
+
+
+
+
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
+    /* background: url(./icons/Rectangle.png); */
+    background-image: var(--bg-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+.app{max-width:1100px;margin:0 auto;padding:18px;max-width:100%;min-height:100vh;padding-bottom:28px}
+
+.top-card{background:var(--card);box-shadow:var(--shadow);border-radius:16px;padding:14px;margin:10px 4px}
+.top-card .earned{font-size:14px;color:var(--muted)}
+.top-card .earned span{display:block;font-size:20px;color:var(--accent);font-weight:700}
+.top-card .progress-mini{font-weight:700;color:var(--accent);text-align:right}
+.top-card .progress-bar.small{height:10px;margin-top:10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,0,0,0.03),rgba(0,0,0,0.02));overflow:hidden}
+.top-card .badges{display:flex;gap:8px;margin-top:12px}
+.badge{padding:6px 10px;border-radius:100px;background:rgba(0,0,0,0.02);font-size:13px}
+.badge.opshi{background:rgba(0, 0, 0, 0.250);color:var(--muted); border: 1.5px solid rgba(0, 0, 0, 1);}
+.badge.full{background:rgba(16, 185, 129, 0.250);color:var(--muted); border: 1.5px solid rgba(16, 185, 129, 1);}
+.badge.half{background:rgba(245,158,11,0.250);color:var(--muted); border: 1.5px solid rgba(245, 158, 11, 1);}
+.badge.off{background:rgba(239,68,68,0.250);color:var(--muted); border: 1.5px solid rgba(239,68,68,1);}
+
+.inputs-row{display:flex;align-items:center;gap:12px;padding:10px 6px}
+.inputs-row .input-inline{flex:1}
+.inputs-row .input-inline input{width:100%;padding:12px;border-radius:12px}
+.controls{display:flex;align-items:center;gap:8px}
+.theme-toggle{background:var(--card);border-radius:12px;padding:10px;border:1px solid rgba(0,0,0,0.06);touch-action:manipulation}
+
+.calendar-card{background:var(--card);box-shadow:var(--shadow);padding:12px;border-radius:18px;margin:8px}
+.calendar-header{display:flex;align-items:center;justify-content:space-between;padding:8px}
+.calendar-header h2{margin:0;font-size:20px;text-align:center;flex:1}
+.nav.small{padding:8px 10px}
+
+.progress{margin:8px 0}
+.progress-info{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.progress-bar{height:12px;background:linear-gradient(90deg,rgba(0,0,0,0.03),rgba(0,0,0,0.02));border-radius:999px;overflow:hidden}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#22c1c3)}
+
+.calendar-card{background:var(--card);box-shadow:var(--shadow);padding:16px;border-radius:var(--radius);}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.calendar .dow{font-size:12px;color:var(--muted);text-align:center;padding:6px}
+.cell{min-height:96px;background:transparent;padding:10px;border-radius:12px;position:relative;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease;touch-action:manipulation}
+.cell:active{transform:translateY(0)}
+.cell .date{font-weight:600;font-size:16px}
+.cell small{display:block;color:var(--muted);font-size:12px;margin-top:8px}
+.cell.empty{background:transparent;cursor:default}
+
+.cell.off{background:linear-gradient(90deg,rgba(239,68,68,0.08),rgba(239, 68, 68, 0.5));border:1px solid rgb(239, 68, 68)}
+.cell.half{background:linear-gradient(90deg,rgba(245,158,11,0.08),rgba(245, 159, 11, 0.5));border:1px solid rgb(245, 159, 11)}
+.cell.full{background:linear-gradient(90deg,rgba(16, 185, 129, 0.08),rgba(16, 185, 129, 0.5));border:1px solid rgb(16, 185, 129)}
+
+.selected{outline:3px solid rgba(79,70,229,0.15)}
+
+.actions{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.legend{display:flex;gap:10px}
+.action{flex:1;padding:16px;border-radius:14px;border:0;font-weight:800;color:#ffffff;font-size:16px;min-width:86px}
+.action.red{background:var(--red)}
+.action.yellow{background:var(--yellow);color:#111}
+.action.green{background:var(--green)}
+.action:active{transform:translateY(1px)}
+.selectedInfo{color:var(--muted);font-size:15px}
+
+.report{margin-top:14px;background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);font-size:15px}
+.credits{margin-top:18px;color:var(--muted);font-size:13px;text-align:center;padding-bottom:env(safe-area-inset-bottom)}
+
+.export-row{display:flex;justify-content:center;padding:12px}
+.export{width:92%;padding:12px;border-radius:12px;border:1px solid rgba(79,70,229,0.2);background:transparent;color:var(--accent);font-weight:700}
+
+
+@media (max-width:900px){
+    .top-panel{flex-direction:column;align-items:stretch;padding:12px}
+    .right{align-items:stretch}
+    .stats{overflow:auto;padding:4px}
+    .calendar .cell{min-height:88px}
+    .inputs{display:flex;flex-direction:column;gap:8px}
+    .controls{justify-content:space-between}
+    .stat{min-width:64px;padding:10px}
+}
+
+@media (max-width:600px){
+    .calendar{gap:4px}
+    .calendar .cell{min-height:60px;padding:6px;font-size:13px}
+    .cell .date{font-size:14px}
+    .cell small{font-size:10px;margin-top:4px}
+    .calendar-header h2{font-size:16px}
+}
+
+@media (max-width:420px){
+    .app{padding:10px}
+    .calendar-card{padding:8px;margin:4px}
+    .calendar{gap:3px}
+    .calendar .dow{font-size:10px;padding:4px}
+    .cell{min-height:60px;padding:4px}
+    .cell .date{font-size:13px}
+    .cell small{font-size:9px;margin-top:2px;line-height:1.2}
+    .action{padding:12px;font-size:13px}
+    .inputs input{min-width:120px}
+    .calendar-header h2{font-size:14px}
+    .calendar-header button{padding:6px 8px}
+}
+
+.badge.full, .badge.half, .badge.off, .badge.opshi {
+    color: var(--text);
+}
+
+.top-left {
+    display: flex;             /* Elementlarni yonma-yon qilish */
+    justify-content: space-between; /* Birini chapga, ikkinchisini o'ngga surish */
+    align-items: center;       /* Vertikal ravishda markazlash */
+    width: 100%;               /* To'liq kenglikni egallashi uchun */
+}
+
+/* Umumiy konteynerni telefon kengligiga moslash */
+.app {
+    max-width: 100%;
+    margin: 0;
+    padding: 10px; /* Chetki bo'shliqni kamaytirdik */
+    min-height: 100vh;
+}
+
+/* Kalendar setkasini boshqarish */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 ta ustun doimo teng taqsimlanadi */
+    gap: 4px; /* Kataklar orasidagi masofani kamaytirdik */
+}
+
+/* Kalendar katakchasi */
+.cell {
+    min-height: 65px; /* Balandlikni kamaytirdik */
+    padding: 4px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Kontent chiqib ketmasligi uchun */
+}
+
+.cell .date {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Katak ichidagi kichik matnlar uchun */
+.cell small {
+    display: block;
+    font-size: 9px; /* Matnni sezilarli kichraytirdik */
+    line-height: 1;
+    margin-top: 2px;
+    white-space: nowrap; /* Matnni bitta qatorga majburlash yoki pastga tushirish */
+}
+
+/* Mobil qurilmalar uchun maxsus media so'rov */
+@media (max-width: 480px) {
+    .calendar-card {
+        padding: 8px;
+        margin: 4px 0;
+    }
+    
+    .top-card .earned span {
+        font-size: 18px; /* Pul miqdori shriftini kichraytirish */
+    }
+
+    .action {
+        padding: 10px 5px; /* Pastki tugmalarni ixchamroq qilish */
+        font-size: 12px;
+    }
+}
+
+
+.salary-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.salary-container label {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px; /* Input va tugma orasidagi masofa */
+    align-items: center;
+}
+
+#monthlySalary {
+    flex: 1; /* Input maksimal joyni egallaydi */
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 2px solid rgba(0,0,0,0.05);
+    background: var(--card);
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#monthlySalary:focus {
+    border-color: var(--accent);
+}
+
+.theme-toggle {
+    height: 48px; /* Input bilan bir xil balandlik */
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.calendar-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    text-transform: capitalize; /* Oy nomini har doim katta harf bilan boshlash */
+    letter-spacing: -0.5px;
+}
+
+.calendar-header .nav.small {
+    background: var(--card);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.calendar-header .nav.small:active {
+    transform: scale(0.9);
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.earned {
+    display: flex;
+    flex-direction: column; /* Matn va summani qatorga ajratish */
+    gap: 4px; /* Oraliq masofa */
+    font-weight: 800;
+}
+
+#statEarned {
+    display: inline-block;
+    letter-spacing: 0.5px; /* Harflar orasidagi masofa yopishmasligi uchun */
+    white-space: nowrap; /* Summa bo'linib ketmasligi uchun */
+    margin-left: 2px;
+}
+
+.theme-toggle svg {
+    stroke: var(--text); /* Matn rangi bilan bir xil bo'ladi */
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:active {
+    transform: scale(0.9); /* Bosilganda kichrayish effekti */
+}
+
+/* Navigatsiya tugmalari (strelkalar uchun) */
+.nav.small {
+    background: var(--glass); /* Shaffof oyna effekti */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text); /* Strelka rangi matn rangi bilan bir xil bo'ladi */
+}
+
+.nav.small svg {
+    width: 20px;
+    height: 20px;
+}
+
+.nav.small:active {
+    transform: scale(0.9);
+    background: var(--accent);
+    color: #ffffff; /* Bosilganda rangi o'zgaradi */
+}
+
+/* Ikonka stili - ko'k kvadratni yo'qotamiz */
+.icon-left, .icon-right {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent !important; /* Ko'k rangni o'chirish */
+    -webkit-mask: none !important; /* Maskani butunlay o'chiramiz */
+    mask: none !important;
+}
+
+.icon-left {
+    background-image: var(--icon-left);
+    background-image: var(--icon-shep);
+}
+
+.icon-right {
+    background-image: var(--icon-right);
+    background-image: var(--icon-ong);
+}
+
+/* Tugmaning o'zini oq (yoki dark mode) qilish */
+.calendar-header .nav.small {
+    background: var(--card) !important; 
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tugma asosi */
+.theme-toggle {
+    width: 60px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: #3d7eae; /* Kunduzgi osmon rangi */
+    position: relative;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+/* Tugma ichidagi aylanuvchi quyosh/oy */
+.toggle-circle {
+    width: 22px;
+    height: 22px;
+    background-color: #f1c40f; /* Quyosh rangi */
+    border-radius: 50%;
+    position: absolute;
+    left: 4px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+/* Qorong'i rejim holati */
+:root.dark .theme-toggle {
+    background-color: #2c3e50; /* Tungi osmon rangi */
+}
+
+:root.dark .toggle-circle {
+    left: 34px;
+    background-color: #ecf0f1; /* Oy rangi */
+    box-shadow: 0 0 10px rgba(236, 240, 241, 0.3);
+}
+
+/* Oy kraterlarini yasash (faqat dark rejimda ko'rinadi) */
+:root.dark .toggle-circle::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #bdc3c7;
+    border-radius: 50%;
+    top: 4px;
+    left: 4px;
+    box-shadow: 8px 8px 0 #bdc3c7, 10px 0px 0 #bdc3c7;
+    opacity: 1;
+}
+
+/* Kunduzgi rejimda kraterlarni yashirish */
+.toggle-circle::before {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Dark mode klassi qo'shilganda tugma ichidagi aylanani surish */
+.dark .toggle-circle {
+    left: 32px !important; /* O'ngga surish */
+    background-color: #ecf0f1 !important;
+}
+
+.dark .theme-toggle {
+    background-color: #2c3e50 !important;
+}
+
+/* Animatsiya silliq bo'lishi uchun */
+.toggle-circle {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+
+
+/* Kalendar navigatsiya tugmalari uchun zamonaviy dizayn */
+.calendar-header .nav.small {
+    width: 45px;
+    height: 45px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.05), 
+                -4px -4px 10px rgba(255, 255, 255, 0.8);
+    position: relative;
+    color: var(--accent); /* Ikonka rangi */
+}
+
+/* Dark mode uchun soya moslashuvi */
+:root.dark .calendar-header .nav.small {
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4), 
+                -2px -2px 8px rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Tugma ustiga borganda (Hover) */
+.calendar-header .nav.small:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: #ffffff !important; /* Ikonka oq bo'ladi */
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+}
+
+
+
+/* Bosilganda "botish" effekti (Active) */
+.calendar-header .nav.small:active {
+    transform: scale(0.92);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ikonkalarni markazlash va rangini boshqarish */
+.icon-left, .icon-right {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-color: var(--accent); /* Asosiy rang */
+    transition: background-color 0.3s ease;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+/* Silliq o'tish animatsiyasi */
+.calendar-header h2 {
+    transition: all 0.3s ease;
+    font-weight: 700;
+    color: var(--text);
+}
+
+body {
+    -webkit-user-select: none; 
+    -ms-user-select: none;     
+    user-select: none;
+}
+
+html, body {
+    height: 100%;
+    height: 100dvh; 
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    position: fixed; 
+    width: 100%;
+}
+
+.app {
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom); 
+}
+
+/* Progress bar uchun tashqi konteyner */
+.progress-container {
+    margin-top: 35px; /* Tepadan raqam uchun joy */
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    padding: 1px 10px;
+}
+
+.progress-bar.small {
+    height: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    position: relative;
+    overflow: visible !important; /* Raqam tashqariga chiqishi uchun shart! */
+}
+
+#progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #6366f1);
+    border-radius: 20px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Ustida yuradigan ko'rsatkich */
+.progress-mini {
+    position: absolute;
+    top: -30px; /* Progress bar tepasida turishi */
+    transform: translateX(-50%); /* Markazni to'g'irlash */
+    background: var(--accent);
+    color: white !important;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    transition: left 0.5s ease;
+    white-space: nowrap;
+    display: block !important; /* Ko'rinishini kafolatlaymiz */
+}
+
+/* Kichik pastga qaragan strelka */
+.progress-mini::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--accent);
+}
+
+.developer-signature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 30px 10px;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+/* Ikki chekkadagi chiziqlar */
+.sig-line {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, var(--muted), transparent);
+    max-width: 80px;
+}
+
+.sig-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dasturlash belgisi (Ikonka) */
+.sig-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card);
+    border-radius: 50%;
+    color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.sig-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Ism-familiya stili */
+.sig-text {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.sig-text span {
+    color: var(--text);
+    font-weight: 700;
+    display: block; /* Ismni pastga tushiradi (ixtiyoriy) */
+    text-align: center;
+    font-size: 15px;
+}
+
+/* Dark mode-da yanada yumshoqroq ko'rinishi uchun */
+:root.dark .sig-line {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+/* Umumiy app paddingini kamaytirish */
+.app {
+    padding: 5px 10px; /* 10px dan 5px ga tushirdik */
+    gap: 8px; /* Elementlar orasidagi masofa */
+}
+
+/* Yuqori kartadagi ichki bo'shliqlarni qisqartirish */
+.top-card {
+    padding: 10px 12px;
+    margin-bottom: 5px;
+}
+
+.earned span {
+    font-size: 18px; /* Pul miqdori shriftini sal kichraytirdik */
+}
+
+/* Progress bar konteynerini tepaga yaqinlashtirish */
+.progress-container {
+    margin-top: 25px; /* 35px dan 25px ga tushirdik */
+    margin-bottom: 10px;
+}
+
+/* Pastki "Dasturchi" qismini ham ixchamlashtirish */
+.developer-signature {
+    padding: 15px 10px; /* Bo'shliqni yarmiga qisqartirdik */
+}
+
+.profile-section {
+    display: flex; /* Elementlarni yonma-yon joylashtirish uchun */
+    align-items: center; /* Vertikal o'rtaga tekislash */
+    background: var(--border); /* Figma dizayndagi kulrang fon */
+    padding: 5px 16px 5px 6px; /* O'ng tomondan ko'proq joy ism uchun */
+    border-radius: 50px; /* To'liq oval shakli */
+    gap: 12px; /* Rasm va ism orasidagi masofa */
+    cursor: pointer;
+    width: fit-content; /* MUHIM: Faqat ichidagi kontentga qarab kengayadi */
+    
+    transition: all 0.3s ease;
+}
+
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Modal styling */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal-content {
+    background: var(--card); padding: 20px; border-radius: 16px; width: 90%; max-width: 350px;
+}
+.modal-content input { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+
+.hidden {
+    display: none !important;
+}
+
+#profileModal {
+    /* Modal ochilganda markazda turishi uchun */
+    display: none; 
+    position: fixed;
+    z-index: 9999;
+    /* qolgan modal stillari... */
+}
+
+.profile {
+    background: rgba(147, 147, 147, 0.5); /* Figma rangining 50% shaffofligi */
+    border: solid 0.5px var(--border); /* Figma chegarasi */
+    border-radius: 50px; /* To'liq oval shakli */
+    
+    /* DINAMIK KENGAYISh UChUN: */
+    width: fit-content; /* Ism qancha uzun bo'lsa, fon shuncha cho'ziladi */
+    min-width: 120px; /* Ism juda qisqa bo'lsa ham, profil xunuk ko'rinmasligi uchun minimal kenglik */
+    
+    /* IChKIDAGI ELEMENTLARNI JOYLARIGA QO'YISh: */
+    display: flex; /* Rasm va ismni yonma-yon qilish */
+    align-items: center; /* Vertikal o'rtaga tekislash */
+    padding: 4px 20px 4px 4px; /* O'ng tomondan ism uchun ko'proq bo'shliq */
+    gap: 10px; /* Rasm va ism orasidagi masofa */
+    border-radius: 50px;
+    margin: 20px 0px 0px 0px;
+background: var(--card);
+box-shadow:  20px 20px 60px var(--shadow),
+             -20px -20px 60px var(--glass);
+}
+
+#userNameDisplay {
+    white-space: nowrap; /* Ism hech qachon pastki qatorga tushib ketmaydi */
+    font-weight: 500; /* Figma dizayndagi shrift qalinligi */
+    color: var(--text); /* Matn oq rangda (Figma dizayningizga mos) */
+    /* overflow va text-overflow olib tashlandi, ism to'liq ko'rinadi */
+}
+
+.profile-avatar {
+    width: 38px; /* Figma bo'yicha rasm o'lchami */
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0; /* Ism cho'zilsa ham, rasm qisqarib ketmaydi */
+}
+
+button:focus, .action:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent; /* Mobil qurilmalarda bosilganda ko'rsatiladigan rangni olib tashlash */
+}
+
+/* Modal asosi */
+.modal-content {
+    background: var(--cardmodal); /* Figma-dagi to'q fon */
+    border: 1px solid var(--border); /* Figma-dagi chegaralar */
+    border-radius: 24px; /* Yumshoq burchaklar */
+    padding: 25px;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 20px 40px var(--shadow);
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: var(--text); /* Figma dizayndagi matn rangi */
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Inputlar uslubi */
+#nameInput {
+    width: 100%;
+    background: var(--card); /* Figma-dagi to'q fon */
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: var(--text);
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#nameInput:focus {
+    border-color: #7c4dff; /* Binafsha rangli fokus */
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Fayl yuklash inputi (zamonaviy ko'rinish) */
+#imageInput {
+    font-size: 14px;
+    color: #8a8d97;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+/* Tugmalar joylashuvi */
+.modal-btns {
+    display: flex;
+    gap: 12px;
+}
+
+/* Umumiy tugma stili */
+.modal-btns button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s active;
+}
+
+/* Saqlash tugmasi (Asosiy) */
+#saveProfile {
+    background: linear-gradient(135deg, #7c4dff, #448aff);
+    color: white;
+    box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+}
+
+/* Yopish tugmasi (Ikkilamchi) */
+#closeModal {
+    background: linear-gradient(135deg, #ff6060, #c00000);
+    color: #ffffff;
+}
+
+.modal-btns button:active {
+    transform: scale(0.96); /* Bosilganda kichrayish effekti */
+}
+
+/* Haqiqiy xunuk tugmani yashiramiz */
+#imageInput {
+    display: none;
+}
+
+/* Uning o'rniga chiroyli ko'rinadigan label yaratamiz */
+.file-upload-label {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #b0b3b8;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.file-upload-label:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #7c4dff;
+    color: #fff;
+}
+
+/* Rasm tanlanganda ko'rinadigan belgi uchun */
+.file-upload-label i {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+#previewContainer {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #7c4dff;
+    display: none; /* Dastlab yashirin turadi */
+}
+
+#previewContainer.show {
+    display: block;
+}
+
+#imagePreview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Rasmni buzmasdan sig'diradi */
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.hidden {
+    display: none;
+}
+
+#labelText {
+    color: var(--text);
+}
+
+/* Modal foni */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal oynasi */
+.modal-content {
+    background: var(--bg);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    border-radius: var(--radius);
+    overflow-y: auto;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass);
+    padding-bottom: 10px;
+}
+
+.close-btn {
+    background: none; border: none;
+    font-size: 28px; color: var(--text);
+    cursor: pointer;
+}
+
+/* Statistika qatorlari */
+.stat-item {
+    background: var(--card);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border: 1px solid var(--glass);
+}
+
+.stat-item:active { transform: scale(0.98); }
+
+.stat-row-top {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+.stat-salary { color: var(--green); }
+
+.stat-row-bottom {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.stat-row-bottom strong { color: var(--accent); }
+
+/* Statistika tugmasi dizayni */
+.stat-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--accent), #6366f1);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    letter-spacing: 0.3px;
+}
+
+.stat-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    background: linear-gradient(135deg, #4338ca, var(--accent));
+}
+
+.stat-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+}
+
+.stat-btn svg {
+    opacity: 0.9;
+}
+
