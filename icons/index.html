@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .dashboard {
+            display: flex;
+            position: relative;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            width: 100%;
+            min-height: 815px;
+        }
+
+        .background-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header {
+            display: flex;
+            position: relative;
+            gap: 20px;
+            justify-content: space-between;
+            margin-left: 10px;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .create-button {
+            display: flex;
+            gap: 28px;
+            padding: 8px;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: normal;
+            line-height: 1;
+            color: white;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            background: rgba(163, 163, 163, 0.5);
+            border-radius: 29px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+            object-fit: contain;
+        }
+
+        .notification-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 6px 10px;
+            margin: auto 0;
+            background: #93c5fd;
+            border-radius: 37px;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+            border: none;
+            cursor: pointer;
+        }
+
+        .notification-dot {
+            width: 20px;
+            height: 20px;
+            background: #facc15;
+            border-radius: 50%;
+            box-shadow: 0px 0px 6px rgba(255, 255, 0, 1);
+        }
+
+        .stats-card {
+            position: relative;
+            padding: 16px 0;
+            margin-top: 24px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            max-width: 380px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .stats-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 20px;
+            max-width: 166px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: normal;
+            line-height: 1.75;
+        }
+
+        .stats-title {
+            color: black;
+        }
+
+        .stats-amount {
+            font-size: 20px;
+            letter-spacing: normal;
+            line-height: 1.6;
+            color: #6366f1;
+        }
+
+        .stats-percentage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: flex-end;
+            padding: 6px 4px;
+            margin-top: 6px;
+            color: white;
+            white-space: nowrap;
+            background: #6366f1;
+            border-radius: 6px;
+        }
+
+        .stats-content {
+            display: flex;
+            flex-direction: column;
+            padding: 0 16px;
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .progress-bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border-radius: 12px;
+            background: #d4d4d8;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #6366f1;
+            border-radius: 12px;
+            width: 154px;
+        }
+
+        .stats-details {
+            display: flex;
+            gap: 10px;
+            align-self: flex-start;
+            margin-top: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: normal;
+            line-height: 1.25;
+            color: black;
+        }
+
+        .stats-total {
+            flex-grow: 1;
+        }
+
+        .stats-badges {
+            display: flex;
+            gap: 4px;
+            align-self: flex-start;
+        }
+
+        .badge {
+            padding: 0 6px;
+            border-radius: 24px;
+            border: 1px solid;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .badge-green {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.3);
+        }
+
+        .badge-yellow {
+            border-color: #facc15;
+            background: rgba(250, 204, 21, 0.3);
+        }
+
+        .badge-red {
+            border-color: #ef4444;
+            background: rgba(220, 38, 38, 0.3);
+        }
+
+        .date-selector {
+            display: flex;
+            position: relative;
+            gap: 20px;
+            align-items: center;
+            margin-top: 80px;
+            width: 100%;
+            font-weight: 500;
+            letter-spacing: normal;
+            color: black;
+            max-width: 330px;
+        }
+
+        .date-card {
+            padding: 8px 12px;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+
+        .date-card-small {
+            height: 90px;
+            min-height: 90px;
+            width: 90px;
+            margin: auto 0;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .date-card-large {
+            height: 110px;
+            min-height: 110px;
+            width: 110px;
+            padding: 16px 12px 10px;
+        }
+
+        .date-card-green {
+            background: rgba(34, 197, 94, 0.8);
+        }
+
+        .date-card-yellow {
+            background: rgba(250, 204, 21, 0.8);
+        }
+
+        .date-card-white {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .date-number-small {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .date-number-large {
+            font-size: 30px;
+            line-height: 1;
+        }
+
+        .date-amount-small {
+            margin-top: 36px;
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
+        .date-amount-large {
+            margin-top: 44px;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .action-buttons {
+            display: flex;
+            position: relative;
+            gap: 10px;
+            margin-top: 56px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: normal;
+            line-height: 1;
+            color: white;
+            white-space: nowrap;
+            max-width: 350px;
+        }
+
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 16px;
+            border-radius: 44px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .action-button-red {
+            padding: 16px 28px;
+            background: rgba(220, 38, 38, 0.9);
+        }
+
+        .action-button-yellow {
+            padding: 16px 14px;
+            background: rgba(250, 204, 21, 0.9);
+        }
+
+        .action-button-green {
+            padding: 16px 20px;
+            background: rgba(34, 197, 94, 0.9);
+        }
+
+        .user-info {
+            position: relative;
+            margin-top: 80px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: normal;
+            color: black;
+            text-align: center;
+        }
+
+        .user-brand {
+            display: flex;
+            gap: 4px;
+            line-height: 1.75;
+            white-space: nowrap;
+            width: 83px;
+            margin-bottom: 4px;
+        }
+
+        .brand-text {
+            border: 2px solid white;
+        }
+
+        .brand-logo {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+            object-fit: contain;
+            align-self: flex-start;
+        }
+
+        .user-name {
+            line-height: 1;
+            border: 2px solid white;
+        }
+
+        .bottom-navigation {
+            display: flex;
+            position: relative;
+            z-index: 10;
+            gap: 20px;
+            justify-content: space-between;
+            align-self: stretch;
+            padding: 16px 64px;
+            margin-top: 64px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main class="dashboard">
+            <img
+                src="./Rectangle.png"
+                class="background-image"
+                alt="Background"
+            />
+
+            <header class="header">
+                <a href="#" class="create-button">
+                    <img
+                        src="./person-default.png"
+                        class="avatar"
+                        alt="User avatar"
+                    />
+                    <span>+ yaratish</span>
+                </a>
+                <button class="notification-button">
+                    <div class="notification-dot"></div>
+                </button>
+            </header>
+
+            <section class="stats-card">
+                <div class="stats-header">
+                    <h2 class="stats-title">Topilgan</h2>
+                    <p class="stats-amount">1 219 355 UZS</p>
+                    <div class="stats-percentage">
+                        <span>44%</span>
+                    </div>
+                </div>
+                <div class="stats-content">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="stats-details">
+                        <span class="stats-total">Umumiy: 13.5</span>
+                        <div class="stats-badges">
+                            <div class="badge badge-green">
+                                <span>Toliq: 11</span>
+                            </div>
+                            <div class="badge badge-yellow">
+                                <span>Yarim: 5</span>
+                            </div>
+                            <div class="badge badge-red">
+                                <span>Dam: 15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="date-selector">
+                <div class="date-card date-card-small date-card-green">
+                    <div class="date-number-small">25</div>
+                    <div class="date-amount-small">90 323 UZS</div>
+                </div>
+                <div class="date-card date-card-large date-card-yellow">
+                    <div class="date-number-large">26</div>
+                    <div class="date-amount-large">45 161 UZS</div>
+                </div>
+                <div class="date-card date-card-small date-card-white">
+                    <div class="date-number-small">27</div>
+                    <div class="date-amount-small">0 UZS</div>
+                </div>
+            </section>
+
+            <section class="action-buttons">
+                <button class="action-button action-button-red">
+                    <span>DAM(0)</span>
+                </button>
+                <button class="action-button action-button-yellow">
+                    <span>YARIM(0.5)</span>
+                </button>
+                <button class="action-button action-button-green">
+                    <span>TO'LIQ(1)</span>
+                </button>
+            </section>
+
+            <section class="user-info">
+                <div class="user-brand">
+                    <span class="brand-text">The</span>
+                    <img
+                        src="./Ellipse 3.png"
+                        class="brand-logo"
+                        alt="Logo"
+                    />
+                    <span class="brand-text">Coder</span>
+                </div>
+                <h3 class="user-name">Ramazan Alliyarov</h3>
+            </section>
+
+            <nav class="bottom-navigation">
+                <button class="nav-button">
+                    <img
+                        src="./Home.png"
+                        class="nav-icon"
+                        alt="Navigation item 1"
+                    />
+                </button>
+                <button class="nav-button">
+                    <img
+                        src="./today.png"
+                        class="nav-icon"
+                        alt="Navigation item 2"
+                    />
+                </button>
+                <button class="nav-button">
+                    <img
+                        src="./language.png"
+                        class="nav-icon"
+                        alt="Navigation item 3"
+                    />
+                </button>
+            </nav>
+        </main>
+    </div>
+</body>
+</html>
